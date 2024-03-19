@@ -1,10 +1,10 @@
 package com.dhia.gestiondestock.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Builder
@@ -22,5 +22,8 @@ public class Utilisateur extends AbstractEntity{
     private String email;
     @Column(name = "mdp")
     private String motdepasse;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "utilisateur")
+    @JsonIgnore
+    private List<Roles> roles;
 
 }

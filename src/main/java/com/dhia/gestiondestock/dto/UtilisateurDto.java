@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Builder
 @Data
@@ -14,6 +16,7 @@ public class UtilisateurDto {
     private String prenom;
     private String email;
     private String motdepasse;
+    private List<RolesDto> roles;
     public static UtilisateurDto fromEntity(Utilisateur utilisateur){
         if(utilisateur==null){
             return null;
@@ -24,6 +27,12 @@ public class UtilisateurDto {
                 .prenom(utilisateur.getPrenom())
                 .email(utilisateur.getEmail())
                 .motdepasse(utilisateur.getMotdepasse())
+                .roles(
+                        utilisateur.getRoles() != null ?
+                                utilisateur.getRoles().stream()
+                                        .map(RolesDto::fromEntity)
+                                        .collect(Collectors.toList()) : null
+                )
                 .build();
     }
     public static Utilisateur toEntity(UtilisateurDto utilisateurDto){

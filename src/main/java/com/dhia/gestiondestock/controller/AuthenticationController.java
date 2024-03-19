@@ -1,8 +1,11 @@
 package com.dhia.gestiondestock.controller;
 
+import com.dhia.gestiondestock.controller.api.AuthenticationApi;
 import com.dhia.gestiondestock.dto.auth.AuthenticationRequest;
 import com.dhia.gestiondestock.dto.auth.AuthenticationResponse;
+import com.dhia.gestiondestock.model.auth.ExtendedUser;
 import com.dhia.gestiondestock.services.auth.ApplicationUserDetailsService;
+import com.dhia.gestiondestock.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

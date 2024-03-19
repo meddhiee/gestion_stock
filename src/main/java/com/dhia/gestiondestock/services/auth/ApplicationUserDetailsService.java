@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dhia.gestiondestock.dto.UtilisateurDto;
+import com.dhia.gestiondestock.model.auth.ExtendedUser;
 import com.dhia.gestiondestock.services.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +25,8 @@ public class ApplicationUserDetailsService implements UserDetailsService {
         UtilisateurDto utilisateur = service.findByEmail(email);
 
 
-        return new ExtendedUser(utilisateur.getEmail(), utilisateur.getMotdepasse(), authorities);
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        utilisateur.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getRoleName())));
+        return new ExtendedUser(utilisateur.getEmail(), utilisateur.getMotdepasse(),authorities);
     }
 }
